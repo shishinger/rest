@@ -6,10 +6,10 @@ $purple: #312244;
 $violet: #4d194d;
 $skobeloff: #006466;
 $text: #f4a261;
-$monoton: 'Monoton', cursive;
-$bodoni: 'Bodoni Moda', serif;
+$monoton: "Monoton", cursive;
+$bodoni: "Bodoni Moda", serif;
 $trans: transform 0.4s cubic-bezier(0.36, 0.33, 0, 1);
-@mixin grain {
+%grain {
   content: "";
   display: block;
   position: absolute;
@@ -21,18 +21,16 @@ $trans: transform 0.4s cubic-bezier(0.36, 0.33, 0, 1);
   background-size: 100% auto;
   background-repeat: no-repeat;
   background-position: top;
-  z-index: 0;
+  z-index: -1;
 }
-@mixin fade {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  background: $black;
-  opacity: 0;
-  transition: opacity 0.8s cubic-bezier(0.36, 0.33, 0, 1);
-  pointer-events: none;
-  z-index: 999;
+%df_cc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+%dfc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
 }

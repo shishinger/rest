@@ -1,29 +1,35 @@
 <template>
-<div class="modal__fade"></div>
-<div class="modal play center">
-  <div class="modal__header">
+  <div class="fade"></div>
+  <div class="modal play">
     <div class="logo">logo</div>
-    <button class="close" @click="closeModalPlay">
+    <button class="close" @click="closeModalPlay" title="Close">
       <span class="cross"></span>
     </button>
-  </div>
-  <div class="modal__body">
-    <form action="submit" class="form">
-      <label for="">Very usefull info 'bout reservation</label>
-      <input type="text">
-      <input type="date">
-      <input type="time" name="" id="">
-      <button class="btn bottom">Reserve</button>
+    <form action="submit" class="modal__body">
+      <fieldset class="modal__form">
+        <legend class="modal__legend">
+          Very usefull info 'bout table reservation
+        </legend>
+        <label for="nameP" class="hidden">Name</label>
+        <input type="text" placeholder="Name" id="nameP" />
+
+        <label for="dateP" class="hidden">Date</label>
+        <input type="date" id="dateP" />
+
+        <label for="timeP" class="hidden">Time</label>
+        <input type="time" id="timeP" />
+
+        <label for="gameP" class="hidden">Game</label>
+        <input type="number" id="gameP" placeholder="Preferred game" />
+        <ReserveBtn />
+      </fieldset>
     </form>
   </div>
-  <div class="modal__footer">
-    <div class="time"></div>
-  </div>
-</div>
 </template>
 
 <script>
 export default {
+  components: { ReserveBtn },
   name: "ModalPlay",
   methods: {
     closeModalPlay() {
@@ -31,7 +37,9 @@ export default {
       app.classList.remove("showModalPlay");
     }
   }
-}
+};
+
+import ReserveBtn from "@/components/ReserveBtn.vue";
 </script>
 
 <style lang="scss">
@@ -39,13 +47,12 @@ export default {
   transform: translateX(150%);
 }
 .showModalPlay {
-  .modal {
-    &.play {
-      transform: translateX(0);
-    }
-    &__fade {
-      opacity: 0.8;
-    }
+  .modal.play {
+    transform: translateX(0);
+  }
+  .fade {
+    opacity: 0.8;
+    z-index: 1;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <Header logo="logo" />
+  <Header />
   <main>
     <Lead />
     <About />
@@ -30,46 +30,33 @@ export default {
     Footer,
     ModalEat,
     ModalPlay
-  },
-  data() {
-    return {
-      logo: "logo"
-    };
   }
 };
 </script>
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400;1,700;1,900&family=Monoton&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-family: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-}
+
 *,
 ::before,
 ::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
   box-sizing: border-box;
 }
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100%;
-  min-height: 100%;
-  scroll-behavior: smooth;
   font-family: $bodoni;
   color: $text;
   font-size: 16px;
   line-height: 1.4;
   font-weight: 400;
+  &::before {
+    @extend %grain;
+  }
 }
-body::before {
-  @include grain;
-}
-ol,
 ul {
   list-style: none;
 }
@@ -77,23 +64,20 @@ a {
   color: inherit;
   text-decoration: none;
 }
+button,
+h1,
+h2,
+h3 {
+  letter-spacing: 1px;
+}
 button {
-  display: inline-flex;
-  min-height: 45px;
-  padding: 0 1rem;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 1.15rem;
+  padding: 0.7em 1em;
+  font-size: 1.15em;
   font-weight: 700;
-  letter-spacing: 0.6px;
-  border-radius: 6px;
+  border-radius: 0.3em;
   cursor: pointer;
   transition: $trans;
   color: $white;
-  outline: none;
-  letter-spacing: 1px;
   &:hover {
     transform: scale(1.1);
   }
@@ -102,10 +86,8 @@ h1,
 h2,
 h3 {
   font-family: $monoton;
-  font-size: 3rem;
+  font-size: 3em;
   text-align: center;
-  line-height: 1.2;
-  letter-spacing: 1px;
 }
 h1 {
   font-weight: 900;
@@ -114,24 +96,15 @@ h1 {
 input {
   width: 100%;
   background-color: $white;
-  padding: 0px 20px;
-  height: 50px;
-  bottom: 0;
-  border-radius: 6px;
+  padding: 1em 1.5em;
+  border-radius: 0.3em;
   font-family: monospace;
 }
 section {
-  height: 100vh;
+  min-height: 100vh;
 }
-section,
-footer {
-  position: relative;
-  padding: 5rem 0;
-  width: 100%;
-  z-index: 10;
-}
-strong {
-  font-weight: 700;
+.logo {
+  font-family: $monoton;
 }
 .hidden {
   position: absolute;
@@ -141,68 +114,6 @@ strong {
   height: 1px;
   width: 1px;
   overflow: hidden;
-}
-.container {
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-}
-.end {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.row {
-  padding: 2rem 10rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-align: left;
-  .intro {
-    width: 50%;
-    font-size: 3rem;
-    font-family: $monoton;
-  }
-  .content {
-    width: 40%;
-    font-size: 2rem;
-  }
-}
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.col {
-  flex-direction: column;
-}
-.close {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.cross {
-  transition: $trans;
-  &::before,
-  &::after {
-    content: "";
-    display: block;
-    background: $red;
-    width: 20px;
-    height: 2px;
-    transform-origin: center;
-  }
-  &::before {
-    transform: rotate(-45deg);
-  }
-  &::after {
-    transform: rotate(45deg);
-  }
 }
 .noise {
   position: fixed;
@@ -219,13 +130,24 @@ strong {
   pointer-events: none;
   animation: noise-generate 3s steps(2) infinite;
 }
+.fade {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $black;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.36, 0.33, 0, 1);
+  pointer-events: none;
+  z-index: -1;
+}
 @media (max-width: 768px) {
   .nav {
     width: 100%;
   }
 }
 @media (min-width: 1200px) {
-  section,
   footer {
     padding: 6.25rem 0;
   }
@@ -239,37 +161,37 @@ strong {
 }
 @keyframes noise-generate {
   0% {
-    transform: translate3d(0, 9rem, 0);
+    transform: translate(0, 9rem);
   }
   10% {
-    transform: translate3d(-1rem, -4rem, 0);
+    transform: translate(-1rem, -4rem);
   }
   20% {
-    transform: translate3d(-8rem, 2rem, 0);
+    transform: translate(-8rem, 2rem);
   }
   30% {
-    transform: translate3d(9rem, -9rem, 0);
+    transform: translate(9rem, -9rem);
   }
   40% {
-    transform: translate3d(-2rem, 7rem, 0);
+    transform: translate(-2rem, 7rem);
   }
   50% {
-    transform: translate3d(-9rem, -4rem, 0);
+    transform: translate(-9rem, -4rem);
   }
   60% {
-    transform: translate3d(2rem, 6rem, 0);
+    transform: translate(2rem, 6rem);
   }
   70% {
-    transform: translate3d(7rem, -8rem, 0);
+    transform: translate(7rem, -8rem);
   }
   80% {
-    transform: translate3d(-9rem, 1rem, 0);
+    transform: translate(-9rem, 1rem);
   }
   90% {
-    transform: translate3d(6rem, -5rem, 0);
+    transform: translate(6rem, -5rem);
   }
   to {
-    transform: translate3d(-7rem, 0, 0);
+    transform: translate(-7rem, 0);
   }
 }
 @keyframes bounce {

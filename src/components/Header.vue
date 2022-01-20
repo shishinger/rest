@@ -1,14 +1,11 @@
 <template>
   <header class="header">
-    <div class="container end">
-      <a href="" class="logo" title="Logo">{{ logo }}</a>
-      <ReserveBtn @click="showReserve" />
-      <button class="menu__toggle" @click="showMenu">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-      </button>
-    </div>
+    <ReserveBtn @click="showReserve" />
+    <button class="menu__toggle" @click="showMenu" title="Menu">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </button>
     <Menu />
   </header>
 </template>
@@ -24,9 +21,13 @@ export default {
     ReserveBtn
   },
   methods: {
-    showMenu() {
+    showMenu: function() {
       const app = document.querySelector("#app");
       app.classList.toggle("showMenu");
+    },
+    showReserve: function() {
+      const app = document.querySelector("#app");
+      app.classList.add("showReserve");
     }
   }
 };
@@ -38,18 +39,24 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
-  .container {
-    padding: 2rem;
-  }
+  padding: 2em;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
 }
-.logo {
-  position: absolute;
-  left: 46%;
-  display: block;
-  font-family: $monoton;
-  font-size: 2rem;
-  line-height: 1;
-  z-index: 10;
+.menu__toggle {
+  margin-left: 10px;
+  background-color: #000;
+  z-index: 2;
+  @extend %dfc;
+  row-gap: 4px;
+}
+.line {
+  height: 3px;
+  width: 12px;
+  border-radius: 0.5em;
+  background-color: $white;
+  transform-origin: left center;
+  transition: $trans;
 }
 </style>

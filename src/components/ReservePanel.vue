@@ -4,22 +4,16 @@
       <span class="cross"></span>
     </button>
     <div class="reserve__block eat">
-      <div class="inner">
-        <h3>Eat</h3>
-        <button @click="openModalEat">
-          Reserve table
-        </button>
-      </div>
-      <div class="visual"></div>
+      <h2>Eat</h2>
+      <button @click="openModalEat">
+        Reserve table
+      </button>
     </div>
     <div class="reserve__block play">
-      <div class="inner">
-        <h3>Play</h3>
-        <button @click="openModalPlay">
-          Reserve court 
-        </button>
-      </div>
-      <div class="visual"></div>
+      <h2>Play</h2>
+      <button @click="openModalPlay">
+        Reserve court
+      </button>
     </div>
   </section>
 </template>
@@ -27,29 +21,27 @@
 <script>
 export default {
   name: "ReservePanel",
-  components: {
-  },
   methods: {
-    closeReserve() {
+    closeReserve: function() {
       const app = document.querySelector("#app");
-      app.classList.remove("showReserve")
+      app.classList.remove("showReserve");
     },
-    openModalEat() {
+    openModalEat: function() {
       const app = document.querySelector("#app");
-      app.classList.add("showModalEat")
+      app.classList.add("showModalEat");
     },
-    openModalPlay() {
+    openModalPlay: function() {
       const app = document.querySelector("#app");
-      app.classList.add("showModalPlay")
+      app.classList.add("showModalPlay");
+      console.log("click");
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
 .reserve {
   &__panel {
-    padding: 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -57,23 +49,22 @@ export default {
     min-height: 100vh;
     display: flex;
     align-items: stretch;
-    justify-content: flex-start;
     transform: translateY(100%);
-    z-index: 999;
-    overflow: hidden;
-    pointer-events: none;
+    z-index: 1;
     transition: $trans;
   }
   &__block {
-    position: relative;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    width: 50%;
-    transition: all .6s cubic-bezier(.36,.33,0,1);
+    flex: 0 0 50%;
+    transition: flex 0.6s cubic-bezier(0.36, 0.33, 0, 1),
+      background-color 0.6s cubic-bezier(0.36, 0.33, 0, 1),
+      transform 0.6s cubic-bezier(0.36, 0.33, 0, 1);
     &:hover {
-      width: 75%;
+      flex: 0 0 65%;
     }
     &.eat {
       background-color: #144552;
@@ -91,22 +82,17 @@ export default {
       }
       &:hover {
         background-color: DarkSlateBlue;
+        transform: translateX(-23%);
       }
     }
     &::before {
-      @include grain;
+      @extend %grain;
     }
-    button {
-      position: relative;
-      z-index: 999;
-    }    
   }
 }
 .showReserve {
   .reserve__panel {
-    pointer-events: all;
     transform: translateY(0);
-
   }
 }
 </style>
