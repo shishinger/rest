@@ -27,11 +27,11 @@ export default {
   p {
     flex: 0 0 40%;
   }
-  p:nth-child(1) {
+  p:nth-of-type(1) {
     font-size: 3em;
     font-family: $monoton;
   }
-  p:nth-child(2) {
+  p:nth-of-type(2) {
     font-size: 2em;
   }
 }
